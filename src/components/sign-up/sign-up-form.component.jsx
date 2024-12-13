@@ -8,6 +8,8 @@ import "./sign-up.styles.scss";
 import FormInput from "../form-input/form-input.component";
 import Button from "../button/button.component";
 
+// import { UserContext } from "../../context/user.context";
+
 const defaultFormFields = {
   displayName: "",
   email: "",

@@ -1,7 +1,6 @@
 import { useState } from "react";
 import {
   signInWithGooglePopup,
-  createUserDocumentFromAuth,
   signInAuthUserWithEmailAndPassword,
 } from "../../utils/firebase/firebase.utils";
 
@@ -13,14 +12,16 @@ const defaultFormFields = {
   email: "",
   password: "",
 };
+
 const SignInForm = () => {
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { email, password } = formFields;
 
+  // const { setCurrentUser } = useContext(UserContext);
+
   const signInWithGoogle = async () => {
     try {
       const { user } = await signInWithGooglePopup();
-      await createUserDocumentFromAuth(user);
     } catch (error) {
       alert(error.message);
     }
@@ -39,11 +40,11 @@ const SignInForm = () => {
     event.preventDefault();
 
     try {
-      const response = await signInAuthUserWithEmailAndPassword(
+      const { user } = await signInAuthUserWithEmailAndPassword(
         email,
         password
       );
-      console.log(response);
+
       resetFormFields();
     } catch (error) {
       alert("Incorrect Credentials");
